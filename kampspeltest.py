@@ -14,10 +14,13 @@ def huvudmeny():
 	print('Vad är ditt namn?')
 
 def introduktion():
-	info=Label(fonster, text='Välkommen till spelet '+namn+'.\nDet är ett rondbaserat kampspel där du strider mot en motståndare.\nDitt mål är att vinna motståndaren.')
+	info=Label(fonster, text='Välkommen till spelet '+namn+'.\nDet är ett rondbaserat kampspel där du strider mot en motståndare.\nDitt mål är att besegra motståndaren.')
 	info.pack()
 
 huvudmeny()
+
+#Ditt namn
+
 namn = input()
 print('Hej '+namn+' vill du starta spelet?')
 starta = input('JA/NEJ\n')
@@ -31,9 +34,12 @@ if running == True:
 	fonster=Tk()
 	fonster.title('Kampspel')
 	fonster.resizable(width=False, height=False)
-	fonster.geometry('1000x500')
+	fonster.geometry('500x250')
+
 	introduktion()
+	
 	fonster.mainloop()
+
 
 
 
