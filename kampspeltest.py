@@ -6,12 +6,19 @@ from tkinter import *
 #För att få olika attacker
 import random 
 #Bakgrundsmusik
-import winsound
+from winsound import * 
 #Slutmeddelande
 import tkinter.messagebox
 
+def heal_wav():
+	return PlaySound('heal.wav', SND_FILENAME)
+
+def attack_wav():
+	return PlaySound('attack.wav', SND_FILENAME)
+
 def slag():
 	global troll_hp
+	attack_wav()
 	slag = random.randint(18, 25)
 	troll_hp = troll_hp - slag
 	trollhp=Label(toolframe, text='Trollets liv:'+str(troll_hp)+'')
@@ -39,6 +46,7 @@ def slag():
 
 def superslag():
 	global troll_hp
+	attack_wav()
 	superslag = random.randint(10, 35)
 	troll_hp = troll_hp - superslag
 	trollhp=Label(toolframe, text='Trollets liv:'+str(troll_hp)+'')
@@ -66,6 +74,7 @@ def superslag():
 
 def hela():
 	global spelare_hp
+	heal_wav()
 	heal = random.randint(70,90)
 	spelare_hp = spelare_hp + heal
 	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
