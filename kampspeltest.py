@@ -3,33 +3,98 @@
 
 #GUI
 from tkinter import * 
-
 #För att få olika attacker
 import random 
-
 #Bakgrundsmusik
 import winsound
+#Slutmeddelande
+import tkinter.messagebox
 
 def slag():
 	global troll_hp
-	troll_hp = troll_hp - random.randint(18, 25)
+	slag = random.randint(18, 25)
+	troll_hp = troll_hp - slag
+	trollhp=Label(toolframe, text='Trollets liv:'+str(troll_hp)+'')
+	trollhp.grid(row=1, column=1)
+	trollatk = random.randint(0,60)
+	global spelare_hp
+	spelare_hp = spelare_hp - trollatk
+	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
+	hp.grid(row=0, column=1)
+	if spelare_hp <= 0:
+		info2.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du förlorade :(')
+		hp.grid_forget()
+		hpdead=Label(toolframe, text='Ditt liv:'+str(dead)+'')
+		hpdead.grid(row=0, column=1)
+	elif troll_hp <= 0:
+		trollhp.grid_forget()
+		trollhpdead=Label(toolframe, text='Trollets liv:'+str(dead)+'')
+		trollhpdead.grid(row=1, column=1)
+		info.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du vann :)')
+
 	return troll_hp
+	return spelare_hp
 
 def superslag():
 	global troll_hp
-	troll_hp = troll_hp - random.randint(10, 35)
+	superslag = random.randint(10, 35)
+	troll_hp = troll_hp - superslag
+	trollhp=Label(toolframe, text='Trollets liv:'+str(troll_hp)+'')
+	trollhp.grid(row=1, column=1)
+	trollatk = random.randint(0,70)
+	global spelare_hp
+	spelare_hp = spelare_hp - trollatk
+	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
+	hp.grid(row=0, column=1)
+	if spelare_hp <= 0:
+		info2.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du förlorade :(')
+		hp.grid_forget()
+		hpdead=Label(toolframe, text='Ditt liv:'+str(dead)+'')
+		hpdead.grid(row=0, column=1)
+	elif troll_hp <= 0:
+		trollhp.grid_forget()
+		trollhpdead=Label(toolframe, text='Trollets liv:'+str(dead)+'')
+		trollhpdead.grid(row=1, column=1)
+		info.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du vann :)')
+
 	return troll_hp
+	return spelare_hp
 
 def hela():
 	global spelare_hp
-	spelare_hp = spelare_hp + random.randint(20, 25)
+	heal = random.randint(70,90)
+	spelare_hp = spelare_hp + heal
+	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
+	hp.grid(row=0, column=1)
+	trollatk = random.randint(0,115)
+	spelare_hp = spelare_hp - trollatk
+	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
+	hp.grid(row=0, column=1)
+	if spelare_hp <= 0:
+		info2.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du förlorade :(')
+		hp.grid_forget()
+		hpdead=Label(toolframe, text='Ditt liv:'+str(dead)+'')
+		hpdead.grid(row=0, column=1)
+	elif troll_hp <= 0:
+		trollhp.grid_forget()
+		trollhpdead=Label(toolframe, text='Trollets liv:'+str(dead)+'')
+		trollhpdead.grid(row=1, column=1)
+		info.grid(row=0, column=2)
+		tkinter.messagebox.showinfo('Information', 'Du vann :)')
+
 	return spelare_hp
+	return troll_hp
 
 def klar_namn():
 	namn.grid_forget()
 	inloggning.grid_forget()
 	klar.grid_forget()
-	start=Label(frame, text='Hej '+namn.get()+' vill du starta spelet?\nDu måste slå ner trollet för att vinna spelet!\nDu har tre attacker att välja på.\nVarje spelare har 100hp och vinnaren är den som får ner den andra till 0.')
+	start=Label(frame, text='Hej '+namn.get()+' vill du starta spelet?\nDu måste slå ner trollet för att vinna spelet!\nDu har tre attacker att välja på.\nVarje spelare har 100hp och vinnaren är den som får ner den andra till 0.\nTrollet slår dig hårdare då du helar.')
 	start.grid(padx=20,pady=20)
 	startknapp.grid(padx=10,pady=10)
 
@@ -45,20 +110,23 @@ def rensa():
 	x = Label(image=bg_bild)
 	x.grid(row=0, column=0)
 
-	atk1=Button(toolframe, text='Slag',padx=20,pady=10,background='gray',command=lambda:slag())
-	atk1.grid()
-
-	atk2=Button(toolframe, text='Superslag',padx=20,pady=10,background='gray',command=lambda:superslag())
-	atk2.grid()
-
-	atk3=Button(toolframe, text='Hela',padx=20,pady=10,background='gray',command=lambda:hela())
-	atk3.grid()
-
 	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
 	hp.grid(row=0, column=1)
 
 	trollhp=Label(toolframe, text='Trollets liv:'+str(troll_hp)+'')
 	trollhp.grid(row=1, column=1)
+
+	atk1=Button(toolframe, text='Slag',padx=20,pady=10,background='gray',command=lambda:slag())
+	atk1.grid(row=0, column=0)
+
+	atk2=Button(toolframe, text='Superslag',padx=20,pady=10,background='gray',command=lambda:superslag())
+	atk2.grid(row=1, column=0)
+
+	atk3=Button(toolframe, text='Hela',padx=20,pady=10,background='gray',command=lambda:hela())
+	atk3.grid(row=2, column=0)
+
+	close=Button(toolframe, text='Stäng av',padx=5,pady=5,background='red',command=lambda:root.destroy())
+	close.grid(row=2,column=1)
 
 	root.mainloop()
 	#Gav upp med att försöka lägga in riddare och troll som skilt
@@ -66,12 +134,7 @@ def rensa():
 
 spelare_hp = 100
 troll_hp = 100
-
-if spelare_hp > 100:
-	spelare_hp = 100
-
-if troll_hp > 100:
-	troll_hp = 100
+dead = 0
 
 root=Tk()
 root.title('Information')
@@ -82,7 +145,7 @@ frame.grid()
 
 toolframe = Frame(root)
 toolframe.grid()
-		
+
 inloggning=Label(frame, text='Vad heter du?')
 inloggning.grid()
 namn=Entry(frame)
@@ -93,6 +156,17 @@ klar.grid()
 startknapp=Button(frame,text='START!',command=lambda:rensa())
 startknapp.grid()
 startknapp.grid_forget()
+
+info=Label(toolframe, text='Du vann!',background='green',font=("Courier", 20))
+info.grid(row=0, column=2)
+info.grid_forget()
+
+info2=Label(toolframe, text='Du förlorade',background='red',font=("Courier", 20))
+info2.grid(row=0, column=2)
+info2.grid_forget()
+
+
+
 
 
 
