@@ -79,7 +79,7 @@ def hela():
 	spelare_hp = spelare_hp + heal
 	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
 	hp.grid(row=0, column=1)
-	trollatk = random.randint(50,115)
+	trollatk = random.randint(15,115)
 	spelare_hp = spelare_hp - trollatk
 	hp=Label(toolframe, text='Ditt liv:'+str(spelare_hp)+'')
 	hp.grid(row=0, column=1)
